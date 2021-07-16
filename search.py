@@ -54,8 +54,66 @@ def _plugin_run():
     _process_output(success, error_code, result)
 
 
+# ===================================================================
+# The following inserts a sting into a string at position of choice. 
+# Bob Cook 07/15/2021
+# -------------------------------------------------------------------
+def insert_string(string_s, insert_s, pos_i=0):
+    return string_s[:pos_i] + insert_s + string_s[pos_i:]
+# ===================================================================
+
+# ==========================================================================================
+# The following checks for ', A' and ', The' in Titles and if found moves to the beginning.
+# It also truncates titles followed by two white spaces. 
+# Bob Cook 07/15/2021
+# Added a check for TV seasons to removed everything after the the Season and Episode
+# Bob Cook 07/16/2021
+# ------------------------------------------------------------------------------------------
+def fix_title(title):
+    pattern0 = re.compile(r'(tt\d{7,8})', re.IGNORECASE)		# 'tt2304459' or 'tt13606088' IMDb record numbers
+    pattern1 = re.compile(r'(?:\, the\s\s).*$', re.IGNORECASE)		# 'the' or 'The'	Example: Fighting 69th, The  (1080p)  [1940] {Passed} - tt0032467
+    pattern2 = re.compile(r'(?:\, a\s\s).*$', re.IGNORECASE)		# 'a' or 'A'		Example: Country Wedding, A  (Hallmark)  (1080p)  [2015] (TV) {TV-G} - tt4814436
+    pattern3 = re.compile(r'(?:\, a\s\-)', re.IGNORECASE)		# 'a -' or 'A -'	Example: Godwink Christmas, A - Meant for Love  (HM&M)  (1080p)  [2019] (TV) {NR} - tt10926350
+    pattern4 = re.compile(r'(?:\s\s).*$', re.IGNORECASE)		# '  '			Example: Every Day's a Holiday  (1080p)  [1937] {Approved} - tt0028843
+    pattern5 = re.compile(r'(?:S\d{2}\sE\d{2})(.*$)', re.IGNORECASE)	# 'S03 E01'		Example: Bewitched - S03 E01 - (1966-09-15) - Nobody's Perfect
+
+    searchResults = re.search('(tt\d{7,8})', title, re.IGNORECASE)
+    if searchResults:
+       IMDb = searchResults					# Example: tt0032467
+
+    searchResults = re.findall(pattern1, title)
+    if searchResults:
+       title = re.sub(pattern1, '', title)
+       title = insert_string(title, 'The ')			# Example: The Fighting 69th
+
+    searchResults = re.findall(pattern2, title)
+    if searchResults:
+       title = re.sub(pattern2, '', title)
+       title = insert_string(title, 'A ')			# Example: A Country Wedding
+
+    searchResults = re.findall(pattern3, title)
+    if searchResults:
+       title = re.sub(pattern3, ":", title);
+       title = insert_string(title, 'A ')			# Example: A Godwink Christmas: Meant for Love
+
+    # Catch all! Truncate two white spaces and everything following.
+    searchResults = re.findall(pattern4, title)
+    if searchResults:
+       title = re.sub(pattern4, '', title)			# Example: Every Day's a Holiday
+
+    searchResults = re.findall(pattern5, title)
+    if searchResults:
+       title = re.sub(searchResults, "", title);		# Example: Bewitched - S03 E01
+
+
+    return title
+# ==========================================================================================
+
 def _process(input_obj, lang, media_type, limit, allowguess):
     title = input_obj['title']
+    
+    title = fix_title(title)
+
     year = _get_year(input_obj)
 
     season = input_obj['season'] if 'season' in input_obj else 0
