@@ -1,0 +1,27 @@
+{
+	"id": "bc9448_themoviedb_alt",
+	"title": "The Movie Database (Alternative)",
+	"description": "",
+	"version": "1.0",
+	"site": "http://www.themoviedb.org/",
+	"entry_file": "loader.sh",
+	"type": ["movie", "tvshow"],
+	"language": ["enu"],
+	"apikey_name": "tmdb_api_key",
+	"test_example": {
+		"movie": {
+			"title": "Harry Potter",
+			"original_available": "2001-11-16"
+		},
+		"tvshow": {
+			"title": "Game of Thrones",
+			"original_available": "2011-04-17"
+		},
+		"tvshow_episode": {
+			"title": "Game of Thrones",
+			"original_available": "2011-04-17",
+			"season": 1,
+			"episode": 1
+		}
+	}
+}

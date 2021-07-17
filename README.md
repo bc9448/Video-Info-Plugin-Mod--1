@@ -1,15 +1,16 @@
 # Video-Info-Plugin-Mod--1
 The Movie DB Online Movie Database (search.py Alternative)
+I have been using Video Station by Synology for several years now. One of the pet peeves I have always had is that the metadata retrieval system lacked the ability to deal with how I named my files. I have chosen to name them in the conventional sort order method. I also include such information as the resolution, the year released, the rating, and the IMDb number. This has caused me lots of problems and numerous manual searches. With my TV episodes, I have chosen to include the episode date and the episode name. This has never seemed to be a problem with season one and two, but the following season fail for some reason.
 
-I have been using Video Station by Synology for several years now. One of the pet peaves I have always had is that the metadata retrieval system lacked in the ability to deal with how I named my files. I have chosen to name them in the conventional sort order method. I also include such information as the resolution, the year released, the rating, and the IMDb number. This has caused me lots of problems and numerous manual searching. With my TV episodes I have cosen to incude the episode date and the episode name. This has never seemed to be a problem with season one and two, but following season fail for some reason.
+Well, Synology has finally made it so we can create our own Video Info Plugins. They have created an excellent <a href="https://download.synology.com/download/Document/Software/DeveloperGuide/Package/VideoStation/All/enu/Synology_Video_Station_API_enu.pdf?_ga=2.110080901.1614377027.1626195829-311373403.1626195829">Developer's Guide</a> to assist us in that endeavor. Unfortunately, 
 
-Well, Synology has finally made it so we can create our own Video Info Plugins. They have created and excellent <a href="https://download.synology.com/download/Document/Software/DeveloperGuide/Package/VideoStation/All/enu/Synology_Video_Station_API_enu.pdf?_ga=2.110080901.1614377027.1626195829-311373403.1626195829">Developer's Guide</a> to assist us in that endevour. Unfortunately, I have been unable to "Add" my own plugin using VideoStaton v3.0.1-2067 on DSM 7. The message being given on the user interface is "The plugin does not work. Please check your Internet connection." I have been discussing this in the Synology Forum located here: <a href="How can I install My Own Video Info Plugin?">How can I install My Own Video Info Plugin?</a>
+I have been unable to "Add" my own plugin using VideoStaton v3.0.1-2067 on DSM 7. The message being given on the user interface is "The plugin does not work. Please check your Internet connection." I have been discussing this in the Synology Forum located here: <a href="How can I install My Own Video Info Plugin?">How can I install My Own Video Info Plugin?</a>
 
 This mod I am presenting IS NOT FOR EVERYONE!
 
 The one I present here is the plugin changes I made to my plugin. I have modified the existing "search.py" in the existing plugin offered by Synology. This is located at the following location: "/var/packages/VideoStation/target/plugins/syno_themoviedb/"
 
-This plugin changes the "sort" title to a "proper" title and removes the excess data. My qualifier for the search is a double space. ("  ") I use this following the sort title in all my files.
+This plugin changes the "sort" title to a "proper" title and removes the excess data. My qualifier for the search is a double space. (" ") I use this following the sort title in all my files.
  <table style="width:100%">
   <tr>
     <th>Example</th>
